@@ -31,9 +31,12 @@
                 <h2 class="role"><i class="fa-solid fa-code"></i> PC Programmer</h2>
                 <p class="bio">Teknolojiye tutkulu, yenilikçi çözümler üretmeyi seven bir yazılımcıyım. Kariyerimde
                     sürekli gelişmeyi ve yeni şeyler öğrenmeyi hedefliyorum.</p>
-                <div class="social-links">
+                <div class="social-links" style="display: flex; gap: 1rem; flex-wrap: wrap;">
                     <a href="mailto:umutugurlu96@gmail.com" class="btn"><i class="fa-solid fa-envelope"></i> İletişime
                         Geç</a>
+                    <a href="CV.pdf" download="Umut_Ugurlu_CV.pdf" class="btn"
+                        style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); box-shadow: none;"><i
+                            class="fa-solid fa-download"></i> CV İndir</a>
                 </div>
             </div>
             <div class="hero-image">
@@ -194,6 +197,72 @@
             <p>&copy; 2025 Umut Uğurlu. Tüm hakları saklıdır. İletişim: umutugurlu96@gmail.com</p>
         </footer>
     </main>
+
+    <!-- CHAT WIDGET -->
+    <div class="chat-widget">
+        <button class="chat-toggle" id="chat-toggle" aria-label="Sohbeti Aç">
+            <i class="fa-solid fa-message"></i>
+        </button>
+        <div class="chat-window" id="chat-window">
+            <div class="chat-header">
+                <span><i class="fa-solid fa-robot"></i> Asistan</span>
+                <button class="close-chat" id="close-chat" aria-label="Sohbeti Kapat"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="chat-body" id="chat-body">
+                <div class="chat-msg bot-msg">
+                    Merhaba! 👋 Ben Umut'un asistanıyım. Sana nasıl yardımcı olabilirim?
+                </div>
+            </div>
+            <form class="chat-input" onsubmit="event.preventDefault(); sendMessage();">
+                <input type="text" id="chat-input" placeholder="Mesajınızı yazın..." autocomplete="off">
+                <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SCRIPT FOR CHAT WIDGET -->
+    <script>
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatWindow = document.getElementById('chat-window');
+        const closeChat = document.getElementById('close-chat');
+        const chatInput = document.getElementById('chat-input');
+        const chatBody = document.getElementById('chat-body');
+
+        chatToggle.addEventListener('click', () => {
+            chatWindow.classList.toggle('active');
+            if (chatWindow.classList.contains('active')) {
+                chatInput.focus();
+            }
+        });
+
+        closeChat.addEventListener('click', () => {
+            chatWindow.classList.remove('active');
+        });
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            // User Message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'chat-msg user-msg';
+            userDiv.textContent = message;
+            chatBody.appendChild(userDiv);
+            chatInput.value = '';
+
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // Bot Reply (Fake)
+            setTimeout(() => {
+                const botDiv = document.createElement('div');
+                botDiv.className = 'chat-msg bot-msg';
+                botDiv.textContent = 'Mesajını aldım! Ancak şu an deneme sürümündeyim. Umut ile iletişime geçmek istersen iletişim formunu veya bağlantıları kullanabilirsin. 😊';
+                chatBody.appendChild(botDiv);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 1000);
+        }
+    </script>
 </body>
 
 </html>
